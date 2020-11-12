@@ -1,0 +1,1 @@
+Se Crea el archivo objeto ya con toda la funcionalidad de compilacion,excepto lo de las funciones especiales,falta manejarlas mejor
