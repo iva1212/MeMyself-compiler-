@@ -1,0 +1,50 @@
+=== RANGOS ===
+1000	4000	7000	8000	9000
+9000	13000	17000	18500	20000
+20000	24000	28000	29500	31000
+31000	34000	37000	37500	38000
+=== FIN RANGOS ===
+=== CONSTANTES ===
+255	int	31000
+0	int	31001
+-100	int	31002
+200	int	31003
+90	int	31004
+20	int	31005
+150	int	31006
+100	int	31007
+-200	int	31008
+-50	int	31009
+300	int	31010
+=== FIN CONSTANTES ===
+=== ERAS ===
+=== FIN ERAS ===
+=== CUADS ===
+GoTo	None	None	1
+READ	i	None	1000
+WRITE	None	None	1000
+Color	31000	31001	31001
+PenUp	None	None	None
+SetX	None	None	31002
+SetY	None	None	31003
+Right	None	None	31004
+PenDown	None	None	None
+PenSize	None	None	31005
+Line	None	None	31006
+PenUp	None	None	None
+SetX	None	None	31007
+SetY	None	None	31003
+PenDown	None	None	None
+Line	None	None	31006
+PenUp	None	None	None
+SetX	None	None	31008
+SetY	None	None	31009
+PenDown	None	None	None
+ArcDown	None	None	31003
+PenUp	None	None	None
+SetX	None	None	31010
+SetY	None	None	31001
+PenDown	None	None	None
+Circle	None	None	31010
+FIN	None	None	None
+=== FIN CUADS ===

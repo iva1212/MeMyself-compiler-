@@ -1,0 +1,28 @@
+program MeMyself ;
+
+main(){
+      
+      write( "Hola mundo");
+      
+      Color(255,0,0);
+      PenSize(20);
+      Line(300);
+      PenUp();
+      SetX(-50);
+      SetY(-20);
+      Right(90);
+      PenDown();
+      Line(150);
+
+      ArcDown(100);
+      PenUp();
+
+      SetX(100);
+      SetY(200);
+
+      PenDown();
+      Point(30);
+      Circle(30);
+
+
+}

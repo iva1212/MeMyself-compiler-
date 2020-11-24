@@ -1,0 +1,3 @@
+pip install ply
+pip install tkinter
+pip install argparse

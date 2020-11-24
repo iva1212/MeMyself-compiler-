@@ -1,1 +1,1 @@
-Se Crea el archivo objeto ya con toda la funcionalidad de compilacion,excepto lo de las funciones especiales,falta manejarlas mejor
+Se inicio con todo lo de la maquina virtual,falta probar mas a detalle,pero ya casi se termina,para empezar la documentacion

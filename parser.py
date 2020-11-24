@@ -1,24 +1,17 @@
 from lexer import tokens
+import config
 from collections import deque
 from cuboSemantico import cuboSemantico
 from tablaFunciones import tablaFunciones
 from cuadruplos import Cuadruplos
 # Parsing rules
 
-flag = 1
-
-cuboSem = cuboSemantico()
-
-
 tablaFunc = tablaFunciones()
 cuads = Cuadruplos(tablaFunc)
 listaVariables = []
 tipoActual = ""
 tipoRetorno = ""
-pilaPoper= deque()
-pilaOp = deque()
-pilaTipos= deque()
-pilaSaltos= deque()
+
 
 
 precedence = (
@@ -81,6 +74,7 @@ def p_funs_end(t):
 def p_parametros(t):
     '''parametros : tipo ID agregar_param COMA parametros
                   | tipo ID agregar_param
+                  | empty
     '''
 
 def p_bloque_start(t):
@@ -118,7 +112,6 @@ def p_lectura_cyclo(t):
     ''' lectura2 : COMA exp_var agregar_cuad_read lectura2
                  | RPAREN SEMICOLON
     '''
-#cambiar por funciones especiales
 def p_func_esp(t):
     ''' func_esp : func_esp_name_param   LPAREN exp RPAREN agregar_cuad_esp_param_func  SEMICOLON
                  | func_esp_name_no_param   LPAREN RPAREN agregar_cuad_esp_no_param_func SEMICOLON
@@ -191,19 +184,20 @@ def p_no_condicional(t):
     '''
     cuads.agregarFor()
 def p_expresion(t):
-    '''expresion : exp_log  agregar_cuad_log
-                 | exp_log  agregar_cuad_log AND agregar_exp_op exp_log
-                 | exp_log  agregar_cuad_log OR agregar_exp_op exp_log
+    '''expresion : exp_comp agregar_cuad_log exp_log '''
+def p_exp_log(t):
+    '''exp_log :   AND agregar_exp_op expresion
+                 | OR agregar_exp_op expresion
                  | empty
     '''
-def p_exp_log(t):
-    '''exp_log   : exp  agregar_cuad_comp
-                 | exp  agregar_cuad_comp MRTHAN agregar_exp_op exp_log
-                 | exp  agregar_cuad_comp LSTHAN agregar_exp_op exp_log
-                 | exp  agregar_cuad_comp LSETHAN agregar_exp_op exp_log
-                 | exp  agregar_cuad_comp MRETHAN agregar_exp_op exp_log
-                 | exp  agregar_cuad_comp DOUBLE agregar_exp_op exp_log
-                 | exp  agregar_cuad_comp NOT_EQUALS agregar_exp_op exp_log
+def p_exp_comp(t):
+    '''exp_comp   : exp  agregar_cuad_comp
+                 | exp  agregar_cuad_comp MRTHAN agregar_exp_op exp_comp
+                 | exp  agregar_cuad_comp LSTHAN agregar_exp_op exp_comp
+                 | exp  agregar_cuad_comp LSETHAN agregar_exp_op exp_comp
+                 | exp  agregar_cuad_comp MRETHAN agregar_exp_op exp_comp
+                 | exp  agregar_cuad_comp DOUBLE agregar_exp_op exp_comp
+                 | exp  agregar_cuad_comp NOT_EQUALS agregar_exp_op exp_comp
     '''
 def p_exp(t):
     '''exp : termino agregar_cuad_arith
@@ -224,7 +218,8 @@ def p_factor_paren(t):
     '''factor_paren : LPAREN agregar_exp_op expresion RPAREN '''
     cuads.popOperador()
 def p_return_func(t):
-    ''' return_func : ID agregar_cuad_era LPAREN e RPAREN fin_func '''
+    ''' return_func : ID agregar_cuad_era LPAREN e RPAREN fin_func
+                    | ID agregar_cuad_era LPAREN  RPAREN fin_func '''
     cuads.agregarRetFunc()
 def p_exp_var(t):
     ''' exp_var : ID '''
@@ -234,12 +229,16 @@ def p_exp_var(t):
 def p_empty(t):
     'empty :'
     pass
+
 # Funciones para puntos neurologicos
+#Se agrega la funcion a la tabla de funciones
 def p_agregar_funs(t):
-    '''agregar_funs : 
+    '''agregar_funs : empty
     '''
     global tipoRetorno
-    tablaFunc.agregarFuncion(t[-1],tipoRetorno)
+    resFunc = tablaFunc.agregarFuncion(t[-1],tipoRetorno)
+    if resFunc != "OK":
+        raise Exception(f'Funcion {resFunc}() Ya existe!')
     tablaFunc.setFuncActual(t[-1])
     tablaFunc.setStartCuad(cuads.cuads_totales)
     tipoRetorno =""
@@ -252,10 +251,11 @@ def p_agregar_param(t):
         tablaFunc.agregarParam(vDir,tipoActual)
     else:
         s_error(f'Multiple declaration of "{param}"!')
-
+#Se agrega operador a la pila de operadores
 def p_agregar_exp_op(t):
     ''' agregar_exp_op : empty '''
     cuads.agregarOperador(t[-1])
+#Se agrega variable a la lista de variables temporal.
 def p_agregar_var(t):
     ''' agregar_lstvar : empty '''
     global listaVariables
@@ -263,6 +263,7 @@ def p_agregar_var(t):
         listaVariables.append((t[-1],cuads.vDir.guardarEspacio('global',tipoActual)))
     else:
         listaVariables.append((t[-1],cuads.vDir.guardarEspacio(tablaFunc.funcActual,tipoActual)))
+#Se agrega variable a la tabla de variables de la funcion actual
 def p_agregar_variable(t):
     '''agregar_variable : empty
     '''
@@ -339,7 +340,10 @@ def p_agregar_cuad_Era(t):
         raise Exception(f'Funcion {func}() no existe!')
 def p_agregar_param_check(t):
     ''' agregar_param_check : empty '''
-    param = tablaFunc.getParam(cuads.getTopFunc())
+    try:
+        param = tablaFunc.getParam(cuads.getTopFunc())
+    except :
+        raise Exception(f'({cuads.getTopFunc()}) Parameters missmatch!')
     cuads.agregarParam(param,tablaFunc.count_param)
     tablaFunc.incrementarParam()
 def p_fin_func(t):
@@ -366,11 +370,9 @@ def s_error(t):
 import ply.yacc as yacc
 parser = yacc.yacc()
 
-f = open('prueba2.txt','r')
+f = open(config.nombre_archivo+'.txt','r')
 data = f.read()
 f.close()
 
 parser.parse(data)
 
-if flag :
-    print("Apropiado")

@@ -1,0 +1,24 @@
+program Recursivo ;
+var
+     int i,j,p ;
+func int module fact(int j)
+   {
+      if(j == 1) then
+        { return ( j );}
+      else
+         { return (j * fact( j - 1) ) ;}
+   }
+func int module fibo(int i)
+   {
+      if( i < 2 ) then
+        { return ( i );}
+      else
+         { return ( fibo(i - 1) + fibo(i - 2) ) ;}
+   }
+
+main(){
+      i = 5;
+      j = 15;
+      write(fibo(j));
+      write(fact(i));
+}

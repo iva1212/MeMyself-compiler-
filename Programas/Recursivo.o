@@ -1,0 +1,65 @@
+=== RANGOS ===
+1000	4000	7000	8000	9000
+9000	13000	17000	18500	20000
+20000	24000	28000	29500	31000
+31000	34000	37000	37500	38000
+=== FIN RANGOS ===
+=== CONSTANTES ===
+1	int	31000
+2	int	31001
+5	int	31002
+15	int	31003
+=== FIN CONSTANTES ===
+=== ERAS ===
+fact	2	0	0	0	3	0	0	1
+fibo	2	0	0	0	5	0	0	1
+=== FIN ERAS ===
+=== CUADS ===
+GoTo	None	None	34
+==	9000	31000	29500
+GoToF	29500	None	6
+=	9000	None	9001
+RETURN	None	None	9001
+GoTo	None	None	14
+ERA	None	None	fact
+-	9000	31000	20000
+PARAM	20000	9000	0
+GoSub	None	None	1
+=>	None	None	20001
+*	9000	20001	20002
+=	20002	None	9001
+RETURN	None	None	9001
+EndFunc	None	None	None
+<	9000	31001	29500
+GoToF	29500	None	20
+=	9000	None	9001
+RETURN	None	None	9001
+GoTo	None	None	33
+ERA	None	None	fibo
+-	9000	31000	20000
+PARAM	20000	9000	0
+GoSub	None	None	15
+=>	None	None	20001
+ERA	None	None	fibo
+-	9000	31001	20002
+PARAM	20002	9000	0
+GoSub	None	None	15
+=>	None	None	20003
++	20001	20003	20004
+=	20004	None	9001
+RETURN	None	None	9001
+EndFunc	None	None	None
+=	31002	None	1000
+=	31003	None	1001
+ERA	None	None	fibo
+PARAM	1001	9000	0
+GoSub	None	None	15
+=>	None	None	20000
+WRITE	None	None	20000
+ERA	None	None	fact
+PARAM	1000	9000	0
+GoSub	None	None	1
+=>	None	None	20001
+WRITE	None	None	20001
+FIN	None	None	None
+=== FIN CUADS ===

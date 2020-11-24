@@ -1,0 +1,32 @@
+program MeMyself ;
+var
+      int i;
+main(){
+      read(i);
+      write(i);
+      Color(255,0,0);
+      PenUp();
+      SetX(-100);
+      SetY(200);
+      Right(90);
+      PenDown();
+      PenSize(20);
+      Line(150);
+      PenUp();
+      SetX(100);
+      SetY(200);
+      PenDown();
+      Line(150);
+      PenUp();
+      SetX(-200);
+      SetY(-50);
+      PenDown();
+      
+      ArcDown(200);
+      PenUp();
+      SetX(300);
+      SetY(0);
+      PenDown();
+      Circle(300);
+
+}

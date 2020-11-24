@@ -17,7 +17,7 @@ class Var:
 class meVM:
     def __init__(self,file):
 
-        # hacer un queu con el archivo
+        # hacer una pila con el archivo
         lineas = deque(file.split('\n'))
         if lineas.popleft() != '=== RANGOS ===':
             self._error()
@@ -109,7 +109,7 @@ class meVM:
     def getTipo(self,dir):
         dir = int(dir)
         if dir < self.varGlobales[0] or dir >= self.varTemp[4]:
-            raise Exception(f'Direcion fuera de memoria {dir}')
+            raise Exception(f'Direccion fuera de memoria {dir}')
 
         if dir < self.varGlobales[1]:
             return 'int'
@@ -194,6 +194,7 @@ class meVM:
             era_local.append(era_local[-1] + i)
         self.offsetLocal.append(era_local)
         self.auxTemp = [None] * sum(func_eras[1])
+        print(self.auxTemp)
         era_temp = [0]
         for i in func_eras[1][:-1]:
             era_temp.append(era_temp[-1] + i)
@@ -226,7 +227,7 @@ class meVM:
         while True:
             cuad = self.cuads[cont]
             op = cuad[0]
-            print(op)
+            
             #LA GRAN LISTA DE OPERADORES
             # operaciones con turtle
             if op == 'Line':

@@ -171,7 +171,7 @@ class Cuadruplos:
             raise Exception("No se puede usar return en funciones void!")
 
         if var.tipo != tipo_retorno:
-            raise Exception(f"Type mismatch! -> {var.vartype} != {tipo_retorno}")
+            raise Exception(f"Type mismatch! -> {var.tipo} != {tipo_retorno}")
 
         if self.dir_func.getRetornoDirFunc() is None:
             self.dir_func.setRetornoDirFunc(self.vDir.guardarEspacio(self.dir_func.funcActual, tipo_retorno))

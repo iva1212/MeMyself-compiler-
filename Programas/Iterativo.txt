@@ -1,0 +1,34 @@
+program Iterativo ;
+var
+     int i,j,p ;
+func int module fact(int j)
+var int res , i;
+   {
+      res = 1;
+      for i=1 to j do {
+          res = res * i;
+      }
+      return (res);
+   }
+func int module fibo(int i)
+var int res , j,z,t ;
+   {
+      if (i == 0) then {
+          return (0);
+      }
+      j = 0;
+      res = 1;
+      for z = 1 to i - 1 do {
+          t = res + j;
+          j = res;
+          res = t;
+      } 
+      return (res);
+
+   }
+main(){
+   i = 10;
+   j = 15;
+   write( fact(i) );
+   write( fibo(j) );
+}
