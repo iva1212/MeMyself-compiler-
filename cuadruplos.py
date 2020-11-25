@@ -41,6 +41,8 @@ class Cuadruplos:
         self.pVars.append(cVar)
     def popOperador(self):
         self.pOperadores.pop()
+    def popFuncion(self):
+        self.pFuncs.pop()
     def guardarCte(self,valor,tipo):
         if not self.dir_func.existeCte(valor, tipo):
             vDir = self.vDir.guardarEspacio('cte', tipo)

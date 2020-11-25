@@ -9,6 +9,7 @@
 2	int	31001
 5	int	31002
 15	int	31003
+20	int	31004
 === FIN CONSTANTES ===
 === ERAS ===
 fact	2	0	0	0	3	0	0	1
@@ -52,7 +53,7 @@ EndFunc	None	None	None
 =	31002	None	1000
 =	31003	None	1001
 ERA	None	None	fibo
-PARAM	1001	9000	0
+PARAM	31004	9000	0
 GoSub	None	None	15
 =>	None	None	20000
 WRITE	None	None	20000

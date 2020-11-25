@@ -1,0 +1,28 @@
+program MeMyself ;
+var
+    int a,b,c;
+    float valor;
+func int module fact(int j)
+var int res , i;
+   {
+      res = 1;
+      for i=1 to j do {
+          res = res * i;
+      }
+      return (res);
+   }
+func int module mult(int j,int i)
+   {
+      return(j * i);
+   }
+func void module pinta(int j,int i){
+    PenSize(i);
+    Line(j);
+}
+main(){
+    a = 5;
+    b = 3;
+    pinta(30,20);
+    write(mult( fact(b) , fact(a) ));
+
+}

@@ -1,1 +1,0 @@
-Se inicio con todo lo de la maquina virtual,falta probar mas a detalle,pero ya casi se termina,para empezar la documentacion

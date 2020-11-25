@@ -1,0 +1,61 @@
+=== RANGOS ===
+1000	4000	7000	8000	9000
+9000	13000	17000	18500	20000
+20000	24000	28000	29500	31000
+31000	34000	37000	37500	38000
+=== FIN RANGOS ===
+=== CONSTANTES ===
+1	int	31000
+5	int	31001
+3	int	31002
+30	int	31003
+20	int	31004
+=== FIN CONSTANTES ===
+=== ERAS ===
+fact	5	0	0	0	3	0	0	1
+mult	3	0	0	0	1	0	0	0
+pinta	2	0	0	0	0	0	0	0
+=== FIN ERAS ===
+=== CUADS ===
+GoTo	None	None	20
+=	31000	None	9001
+=	31000	None	9002
+<=	9002	9000	29500
+GoToF	29500	None	10
+*	9001	9002	20001
+=	20001	None	9001
++	9002	31000	20002
+=	20002	None	9002
+GoTo	None	None	3
+=	9001	None	9004
+RETURN	None	None	9004
+EndFunc	None	None	None
+*	9000	9001	20000
+=	20000	None	9002
+RETURN	None	None	9002
+EndFunc	None	None	None
+PenSize	None	None	9001
+Line	None	None	9000
+EndFunc	None	None	None
+=	31001	None	1000
+=	31002	None	1001
+ERA	None	None	pinta
+PARAM	31003	9000	0
+PARAM	31004	9001	1
+GoSub	None	None	17
+ERA	None	None	mult
+ERA	None	None	fact
+PARAM	1001	9000	0
+GoSub	None	None	1
+=>	None	None	20000
+PARAM	20000	9000	0
+ERA	None	None	fact
+PARAM	1000	9000	0
+GoSub	None	None	1
+=>	None	None	20001
+PARAM	20001	9001	1
+GoSub	None	None	13
+=>	None	None	20002
+WRITE	None	None	20002
+FIN	None	None	None
+=== FIN CUADS ===

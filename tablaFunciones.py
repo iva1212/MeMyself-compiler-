@@ -1,4 +1,5 @@
 from tablaVariables import tablaVariables
+from collections import deque
 class Constante():
     def __init__(self, valor, tipo, vDir):
         self.valor = valor
@@ -11,6 +12,8 @@ class tablaFunciones(object):
         self.funcGlobal = None
         self.funcActual = None
         self.count_param = 0
+        self.count_param_pas = deque()
+        
 
 
     def agregarFuncion(self, name, returnType):
@@ -93,13 +96,18 @@ class tablaFunciones(object):
         return (self.count_param == len(self.diccionario[func]["parametros"]))
     def resetParamCount(self):
         self.count_param = 0
+    def newFuncCall(self):
+        self.count_param_pas.append(self.count_param)
+    def popFuncCall(self):
+         self.count_param= self.count_param_pas.pop()
     def printFunciones(self):
         for funciones in self.diccionario:
             print(funciones)
-    def setStartCuad(self,cu):
-        self.diccionario[self.funcActual]["startCuad"] = cu
+    def setStartCuad(self,cuad):
+        self.diccionario[self.funcActual]["startCuad"] = cuad
     def getStartCuad(self,func):
         return self.diccionario[func]["startCuad"]
+
     def printVariables(self):
         for funcion in self.diccionario:
             print(funcion)

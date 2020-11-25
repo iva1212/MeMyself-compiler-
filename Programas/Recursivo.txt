@@ -18,7 +18,7 @@ func int module fibo(int i)
 
 main(){
       i = 5;
-      j = 15;
+      j = 20;
       write(fibo(j));
       write(fact(i));
 }

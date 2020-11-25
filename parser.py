@@ -100,6 +100,7 @@ def p_modulo_v(t):
     ''' modulo_v : ID agregar_cuad_era LPAREN e RPAREN fin_func SEMICOLON
                  | ID agregar_cuad_era LPAREN RPAREN fin_func SEMICOLON
     ''' 
+    cuads.popFuncion()
 def p_return(t):
     ''' return : RETURN LPAREN exp RPAREN SEMICOLON 
     '''
@@ -335,6 +336,8 @@ def p_agregar_cuad_Era(t):
     if tablaFunc.funcionExiste(func):
         cuads.agregarEra(func)
         cuads.agregarFunc(func)
+        tablaFunc.newFuncCall()
+        tablaFunc.resetParamCount()
         cuads.pOperadores.append('(')
     else:
         raise Exception(f'Funcion {func}() no existe!')
@@ -351,8 +354,11 @@ def p_fin_func(t):
     func = cuads.getTopFunc()
     if tablaFunc.verificarParams(func):
         tablaFunc.resetParamCount()
+        tablaFunc.popFuncCall()
         cuads.agregarFuncSub(func,tablaFunc.getStartCuad(func))
         cuads.popOperador()
+    else:
+        raise Exception(f' {func} Parameters missmatch!')
 def p_agregar_esp_func(t):
     ''' agregar_esp_func : empty'''
     cuads.agregarFunc(t[-1])
